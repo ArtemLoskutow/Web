@@ -1,6 +1,4 @@
-﻿const catalogue = document.querySelector("#catalogue");
-
-// 1. Load items from list in articles in main block
+﻿// 1. Load items from list in articles in main block
 
 const items = [
     {
@@ -20,17 +18,43 @@ const items = [
         title: "Центнер бетона",
         price: 10,
         type: "сплава белокамня"
+    },
+    {
+        id: 4,
+        title: "Металоконструкции",
+        price: 10,
+        type: "сплавов белокамня"
+    },
+    {
+        id: 5,
+        title: "Энергетический модуль",
+        price: 15,
+        type: "сплава белокамня"
     }
 ]
 
+const catalogue = document.querySelector(".CatalogueGrid");
+
 items.forEach((item) => {
+    // 1.1 Article form
     const card = document.createElement("article");
     card.classList.add("ItemCard");
 
+    const leftPart = document.createElement("div");
+    leftPart.classList.add("TextPart");
+    card.append(leftPart);
+
+    const imagePart = document.createElement("div");
+    imagePart.classList.add("ImagePart");
+    imagePart.textContent = "Изображение";
+    card.append(imagePart);
+
+    // 1.2 Article other
     const title = document.createElement("h3");
     title.textContent = item.title;
 
     const price = document.createElement("p");
+    price.classList.add("ItemPrice");
     price.textContent = `Цена: ${item.price} ${item.type}`;
 
     const button = document.createElement("button");
@@ -39,9 +63,9 @@ items.forEach((item) => {
     button.dataset.id = item.id;
     button.textContent = "Добавить в корзину";
 
-    card.append(title);
-    card.append(price);
-    card.append(button);
+    leftPart.append(title);
+    leftPart.append(price);
+    leftPart.append(button);
     catalogue.append(card);
 });
 
