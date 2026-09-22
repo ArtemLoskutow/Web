@@ -1,0 +1,12 @@
+body {
+    background-color: #0A1128;
+    color: #E2E8F0;
+    font-family: sans-serif;
+}
+.ItemCard {
+    background-color: #1C2541;
+    border-radius: 10px;
+}
+.ItemCard button {
+    background-color: #BD93F9;
+}
