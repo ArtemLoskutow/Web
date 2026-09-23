@@ -80,6 +80,7 @@ items.forEach((item) => {
     minus_button.dataset.id = item.id;
     minus_button.textContent = "−";
     controls.append(minus_button);
+    minus_button.addEventListener("click", minusItem);
 
     const button = document.createElement("button");
     button.type = "button";
@@ -87,6 +88,7 @@ items.forEach((item) => {
     button.dataset.id = item.id;
     button.textContent = "Добавить в корзину";
     controls.append(button);
+    button.addEventListener("click", addToCart);
 
     const plus_button = document.createElement("button");
     plus_button.type = "button";
@@ -94,6 +96,7 @@ items.forEach((item) => {
     plus_button.dataset.id = item.id;
     plus_button.textContent = "+";
     controls.append(plus_button);
+    plus_button.addEventListener("click", plusItem);
 
     // 1.3.67
     image_part.src = item.image || "images/placeholder.png";
@@ -103,35 +106,66 @@ items.forEach((item) => {
 
 // 2. Cart & buttons
 
-const cart_count = document.querySelector("#cart-count");
-const add_buttons = document.querySelectorAll(".BuyButton");
-let count = 0;
+const cart_counter = document.querySelector("#cart-count");
+let items_count = 0;
+let items_price = 0;
+
+function plusItem(event) {
+    const selected_item = items.find((item) => { return item.id == event.target.dataset.id; });
+
+    items_count = items_count + 1;
+    cart_counter.textContent = items_count;
+    items_price = items_price + selected_item.price;
+}
 
 function addToCart(event) {
     const button = event.target;
-    const controls = button.parentElement;
-    controls.classList.add("IsAdded");
+    button.parentElement.classList.add("IsAdded");
 
     const selected_item = items.find((item) => { return item.id == button.dataset.id; });
-    count = count + selected_item.price;
-    cart_count.textContent = count;
+    items_count = items_count + 1;
+    cart_counter.textContent = items_count;
+    items_price = items_price + selected_item.price;
     button.textContent = "Добавлено";
 }
 
-add_buttons.forEach((button) => { button.addEventListener("click", addToCart); });
+function minusItem(event) {
+    const selected_item = items.find((item) => { return item.id == event.target.dataset.id; });
+
+    items_count = items_count - 1;
+    cart_counter.textContent = items_count;
+    items_price = items_price - selected_item.price;
+}
 
 
 
 // 3. Cart window
 
-const openButton = document.querySelector('#open-window');
-const closeButton = document.querySelector('#close-window');
-const windowElement = document.querySelector('#cart');
+const open_button = document.querySelector("#open-cart");
+const close_button = document.querySelector("#close-cart");
+const cart = document.querySelector("#cart");
+const cart_price = document.querySelector("#cart-price");
 
-openButton.addEventListener('click', () => {
-    windowElement.showModal();
+open_button.addEventListener("click", () => {
+    cart.showModal();
+    cart_price.textContent = items_price;
 });
 
-closeButton.addEventListener('click', () => {
-    windowElement.close();
+close_button.addEventListener("click", () => {
+    cart.close();
+});
+
+// 4. Extra
+
+const adresess = [
+    "Кратер N-ый",
+    "Линия терминатора"
+]
+
+const adress_list = document.querySelector("#adress-list")
+
+adresess.forEach((adres) => {
+    const option = document.createElement("option");
+    option.textContent = adres;
+    adress_list.append(option);
 });

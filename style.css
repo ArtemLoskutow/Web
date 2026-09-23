@@ -3,7 +3,7 @@
     src: url("fonts/Comfortaa-Regular.ttf");
 }
 h1, h2, h3 {
-    font-family: 'Comfortaa';
+    font-family: "Comfortaa";
 }
 body {
     background-color: #0A1128;
@@ -45,7 +45,7 @@ body {
     background-color: #BD93F9;
     border: none;
     border-radius: 8px;
-    font-family: 'Comfortaa';
+    font-family: "Comfortaa";
 }
 .MinusButton,
 .PlusButton {
@@ -58,7 +58,7 @@ body {
     background-color: #31456B;
     border: none;
     border-radius: 8px;
-    font-family: 'Comfortaa';
+    font-family: "Comfortaa";
     font-size: 20px;
     align-items: center;
     justify-content: center;
