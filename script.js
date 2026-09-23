@@ -5,7 +5,8 @@ const items = [
         id: 1,
         title: "Набор деталей",
         price: 1,
-        type: "сплав белокамня"
+        type: "сплав белокамня",
+        image: "images/placeholder.png"
     },
     {
         id: 2,
@@ -30,46 +31,73 @@ const items = [
         title: "Энергетический модуль",
         price: 15,
         type: "сплава белокамня"
+    },
+    {
+        id: 6
     }
 ]
 
 const catalogue = document.querySelector(".CatalogueGrid");
 
 items.forEach((item) => {
-    // 1.1 Article form
+    // 1.1 Card layout
     const card = document.createElement("article");
     card.classList.add("ItemCard");
 
-    const leftPart = document.createElement("div");
-    leftPart.classList.add("TextPart");
-    card.append(leftPart);
+    const left_part = document.createElement("div");
+    left_part.classList.add("TextPart");
+    card.append(left_part);
 
-    const imagePart = document.createElement("div");
-    imagePart.classList.add("ImagePart");
-    imagePart.textContent = "Изображение";
-    card.append(imagePart);
+    const image_part = document.createElement("img");
+    image_part.classList.add("ImagePart");
+    card.append(image_part);
 
-    // 1.2 Article other
+    catalogue.append(card);
+
+    // 1.2 Card elements
+    // 1.2.1 Text part
     const title = document.createElement("h3");
-    title.textContent = item.title;
+    title.textContent = item.title || "В процессе добавления";
+    left_part.append(title);
 
     const price = document.createElement("p");
     price.classList.add("ItemPrice");
-    price.textContent = `Цена: ${item.price} ${item.type}`;
+    if (item.price === undefined || item.type === undefined) {
+        price.textContent = "Цена уточняется";
+    } else {
+        price.textContent = `Цена: ${item.price} ${item.type}`;
+    }
+    left_part.append(price);
+
+    // 1.2.2 Buttons
+    const controls = document.createElement("div");
+    controls.classList.add("QuantityControls");
+    left_part.append(controls);
+
+    const minus_button = document.createElement("button");
+    minus_button.type = "button";
+    minus_button.classList.add("MinusButton");
+    minus_button.dataset.id = item.id;
+    minus_button.textContent = "−";
+    controls.append(minus_button);
 
     const button = document.createElement("button");
     button.type = "button";
     button.classList.add("BuyButton");
     button.dataset.id = item.id;
     button.textContent = "Добавить в корзину";
+    controls.append(button);
 
-    leftPart.append(title);
-    leftPart.append(price);
-    leftPart.append(button);
-    catalogue.append(card);
+    const plus_button = document.createElement("button");
+    plus_button.type = "button";
+    plus_button.classList.add("PlusButton");
+    plus_button.dataset.id = item.id;
+    plus_button.textContent = "+";
+    controls.append(plus_button);
+
+    // 1.3.67
+    image_part.src = item.image || "images/placeholder.png";
 });
-
-// /1
 
 
 
@@ -80,15 +108,17 @@ const add_buttons = document.querySelectorAll(".BuyButton");
 let count = 0;
 
 function addToCart(event) {
-    const selected_item_id = items.find((item) => { return item.id == event.target.dataset.id; });
-    count = count + selected_item_id.price;
+    const button = event.target;
+    const controls = button.parentElement;
+    controls.classList.add("IsAdded");
+
+    const selected_item = items.find((item) => { return item.id == button.dataset.id; });
+    count = count + selected_item.price;
     cart_count.textContent = count;
-    event.target.textContent = "Добавлено";
+    button.textContent = "Добавлено";
 }
 
 add_buttons.forEach((button) => { button.addEventListener("click", addToCart); });
-
-// /2
 
 
 
@@ -105,5 +135,3 @@ openButton.addEventListener('click', () => {
 closeButton.addEventListener('click', () => {
     windowElement.close();
 });
-
-// /3
