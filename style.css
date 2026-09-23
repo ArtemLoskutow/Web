@@ -47,6 +47,10 @@ body {
     border-radius: 8px;
     font-family: "Comfortaa";
 }
+.BuyButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
 .MinusButton,
 .PlusButton {
     display: none;
