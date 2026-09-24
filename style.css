@@ -10,6 +10,40 @@ body {
     color: #E2E8F0;
     font-family: sans-serif;
 }
+#header {
+    display: flex;
+    justify-content: left;
+    align-content: center;
+    gap: 20px;
+    width: 50%;
+    font-family: "Comfortaa";
+}
+#header input, select {
+    background-color: #BD93F9;
+    border: none;
+    border-radius: 4px;
+    font-family: "Comfortaa";
+}
+#header input:focus {
+    outline: none;
+}
+#cart {
+    background-color: #1C2541;
+    color: #E2E8F0;
+    border-radius: 10px;
+}
+.FormButton {
+    cursor: pointer;
+    background-color: #BD93F9;
+    color: #0A1128;
+    border: none;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+    min-width: 150px;
+    min-height: 20px;
+    font-family: "Comfortaa";
+}
 .ItemCard {
     display: grid;
     grid-template-columns: 2fr 3fr;
@@ -25,10 +59,20 @@ body {
     padding: 16px;
     text-align: center;
 }
+.ItemDescription {
+    align-self: stretch;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    color: #E2E8F0;
+    text-align: left;
+    line-height: 1.45;
+    font-family: "Comfortaa";
+}
 .ItemPrice {
     align-self: stretch;
     margin: 0;
     text-align: left;
+    font-family: "Comfortaa";
 }
 .QuantityControls {
     display: flex;
@@ -80,4 +124,40 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
+}
+@media (max-width: 900px) {
+    .CatalogueGrid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    #header {
+        width: auto;
+        flex-wrap: wrap;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        margin: 0;
+    }
+    #header {
+        padding: 16px;
+        gap: 12px;
+    }
+    .ItemCard {
+        grid-template-columns: 1fr;
+    }
+    .ImagePart {
+        order: -1;
+        min-height: 180px;
+    }
+    .TextPart {
+        min-height: 200px;
+    }
+    .BuyButton {
+        min-width: 0;
+        width: 100%;
+    }
+    .QuantityControls {
+        width: 100%;
+    }
 }

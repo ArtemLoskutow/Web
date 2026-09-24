@@ -11,20 +11,22 @@
 <body>
     <header>
         <h1>Dominium Scientia Industris</h1>
-        <p>Товаров в корзине: <span id="cart-count">0</span></p>
+        <section id="header">
+            <p>Товаров в корзине: <span id="cart-count">0</span></p>
 
-        <button id="open-cart" type="button">Открыть корзину</button>
-        <dialog id="cart">
-            <form>
-                <p><label>Ваше имя: <input type="text" placeholder="Имя" required></label></p>
-                <p><label>Ваша фамилия: <input type="text" placeholder="Фамилия" required></label></p>
-                <p><label>Выберите адрес: <select id="address-list" required></select></label></p>
-                <p><label>Контактный телефон: <input type="text" placeholder="Без + и -" required></label></p>
-                <p>Товаров на сумму <span id="cart-price">0</span> сплава белокамня.</p>
-                <button type="submit">Оформить покупку</button>
-            </form>
-            <p><button id="close-cart" type="button">Вернуться в каталог</button></p>
-        </dialog>
+            <button id="open-cart" type="button" class="FormButton">Открыть корзину</button>
+            <dialog id="cart">
+                <form id="cart-form">
+                    <p><label>Ваше имя: <input type="text" placeholder="Имя" required></label></p>
+                    <p><label>Ваша фамилия: <input type="text" placeholder="Фамилия" required></label></p>
+                    <p><label>Выберите адрес: <select id="address-list" required></select></label></p>
+                    <p><label>Контактный телефон: <input type="number" placeholder="Без + и -" required></label></p>
+                    <p id="form-text">Товаров на сумму <span id="cart-price">0</span> сплава белокамня.</p>
+                    <button type="submit" class="FormButton">Оформить покупку</button>
+                </form>
+                <p><button id="close-cart" class="FormButton" type="button">Вернуться в каталог</button></p>
+            </dialog>
+        </section>
     </header>
     
     <main>

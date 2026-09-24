@@ -18,34 +18,45 @@ const items = [
         title: "Набор деталей",
         price: 1,
         type: "сплав белокамня",
-        image: "images/placeholder.png"
+        image: "images/repair-parts.jpg",
+        description: "Крепежи, кабели и резервные соединительные элементы для ремонта модулей."
     },
     {
         id: 2,
         title: "Набор инструментов",
         price: 5,
-        type: "сплава белокамня"
+        type: "сплава белокамня",
+        image: "images/tools.jpg",
+        description: "Базовые ремонтные инструменты с универсальными насадками."
     },
     {
         id: 3,
         title: "Центнер бетона",
         price: 10,
-        type: "сплава белокамня"
+        type: "сплава белокамня",
+        image: "images/concrete.jpg",
+        description: "Бетон."
     },
     {
         id: 4,
         title: "Металоконструкции",
         price: 10,
-        type: "сплавов белокамня"
+        type: "сплавов белокамня",
+        image: "images/metal-structures.jpg",
+        description: "Арматура и стальные листы для одной шаблонной конструкции."
     },
     {
         id: 5,
         title: "Энергетический модуль",
         price: 15,
-        type: "сплава белокамня"
+        type: "сплава белокамня",
+        image: "images/nuclear-module.jpg",
+        description: "Энергетический модуль с турбиной, вращаемой благодаря распаду радиокативного материала."
     },
     {
-        id: 6
+        id: 6,
+        title: "Агромодуль",
+        description: "Модуль для выращивания культур, оснащённый всем необходимым для минимального участия человека."
     }
 ]
 
@@ -72,6 +83,11 @@ items.forEach((item) => {
     const title = document.createElement("h3");
     title.textContent = item.title || "В процессе добавления";
     left_part.append(title);
+
+    const description = document.createElement("p");
+    description.classList.add("ItemDescription");
+    description.textContent = item.description || "Описание поставки находится в процессе добавления.";
+    left_part.append(description);
 
     const price = document.createElement("p");
     price.classList.add("ItemPrice");
@@ -125,16 +141,17 @@ items.forEach((item) => {
 const cart_counter = document.querySelector("#cart-count");
 function updateItemsQuantity() {
     let items_count = 0;
-    cart_items.forEach(item => items_count += item.quantity);
+    cart_items.forEach(item => items_count += Number(item.quantity));
     cart_counter.textContent = items_count;
 }
 
 function updateItemControls(item_id) {
-    const card = document.querySelector(`.ItemCard[data-id="${item_id}"]`);
+    const card = document.querySelector(`.ItemCard[data-id="${Number(item_id)}"]`);
+    if (card === null) { return; }
+
     const controls = card.querySelector(".QuantityControls");
     const buy_button = card.querySelector(".BuyButton");
-
-    const cart_item = cart_items.find(item => item.id == item_id);
+    const cart_item = cart_items.find(item => item.id == Number(item_id));
 
     if (cart_item === undefined) {
         controls.classList.remove("IsAdded");
@@ -187,8 +204,15 @@ close_button.addEventListener("click", () => {
 // 4. Extra
 
 const addresess = [
-    "Кратер N-ый",
-    "Линия терминатора"
+    "Кратер Герцшпрунг",
+    "Кратер Королёв",
+    "Кратер Менделеев",
+    "Кратер Галуа",
+    "Бассейн Аполлон",
+    "Бассейн Море Восточного",
+    "Бассейн Южный полюс - Эйткен",
+    "Гора Хэдли",
+    "Пик Хейген"
 ]
 
 const address_list = document.querySelector("#address-list")
@@ -204,4 +228,20 @@ updateItemsQuantity();
 
 cart_items.forEach((item) => {
     updateItemControls(item.id);
+});
+
+const cart_form = document.querySelector("#cart-form");
+cart_form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (cart_items.length == 0) {
+        alert("Корзина пуста");
+        return;
+    }
+    alert("Заказ создан!");
+
+    cart_items = [];
+    saveCart();
+    updateItemsQuantity();
+    items.forEach(item => updateItemControls(item.id));
 });
