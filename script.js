@@ -51,13 +51,21 @@ const items = [
         price: 15,
         type: "сплава белокамня",
         image: "images/nuclear-module.jpg",
-        description: "Энергетический модуль с турбиной, вращаемой благодаря распаду радиокативного материала."
+        description: "Энергетический модуль с турбиной, вращаемой благодаря распаду радиоактивного материала."
     },
     {
         id: 6,
         title: "Агромодуль",
         description: "Модуль для выращивания культур, оснащённый всем необходимым для минимального участия человека."
-    }
+    }/*,
+    {
+        id: 7,
+        title: "Сикеван",
+        price: 67,
+        type: "сиксеванов",
+        image: "images/siksevan.jpg",
+        description: "Шестьдесять семь мозговых клеток у меня."
+    }*/
 ]
 
 const catalogue = document.querySelector(".CatalogueGrid");
@@ -203,7 +211,7 @@ close_button.addEventListener("click", () => {
 
 // 4. Extra
 
-const addresess = [
+const addresses = [
     "Кратер Герцшпрунг",
     "Кратер Королёв",
     "Кратер Менделеев",
@@ -217,9 +225,9 @@ const addresess = [
 
 const address_list = document.querySelector("#address-list")
 
-addresess.forEach((addres) => {
+addresses.forEach((address) => {
     const option = document.createElement("option");
-    option.textContent = addres;
+    option.textContent = address;
     address_list.append(option);
 });
 
@@ -244,4 +252,7 @@ cart_form.addEventListener("submit", (event) => {
     saveCart();
     updateItemsQuantity();
     items.forEach(item => updateItemControls(item.id));
+
+    cart_form.reset();
+    cart.close();
 });
